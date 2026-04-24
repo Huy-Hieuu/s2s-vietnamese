@@ -1,0 +1,33 @@
+eval:
+  output_dir: "results/eval"
+
+asr:
+  test_files:
+    - "data/asr/eval/common_voice_vi_test.jsonl"
+  metrics:
+    - "wer"
+    - "cer"
+  target_wer: 0.10
+  streaming_latency_target_ms: 500
+
+tts:
+  test_files:
+    - "data/tts/eval/vietnamese_speech_eval.jsonl"
+  metrics:
+    - "mos"
+    - "pesq"
+    - "speaker_similarity"
+  target_mos: 4.0
+
+e2e:
+  num_samples: 100
+  metrics:
+    - "latency_p50"
+    - "latency_p95"
+    - "latency_p99"
+    - "wer"
+    - "mos"
+  latency_targets:
+    p50_ms: 800
+    p95_ms: 1000
+    p99_ms: 1500

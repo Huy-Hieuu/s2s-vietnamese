@@ -1,0 +1,46 @@
+pipeline:
+  name: "cascade"
+  mode: "streaming"
+
+vad:
+  model: "silero_vad"
+  threshold: 0.5
+  min_speech_duration_ms: 250
+  min_silence_duration_ms: 100
+  window_size_ms: 30
+  sampling_rate: 16000
+
+asr:
+  config: "configs/asr/whisper_vietnamese.yaml"
+  max_buffer_s: 30.0
+
+llm:
+  config: "configs/llm/sft.yaml"
+  system_prompt: |
+    Bạn là trợ lý AI thông minh. Phản hồi tự nhiên, ngắn gọn bằng tiếng Việt.
+    Bạn đang tham gia một cuộc trò chuyện bằng giọng nói, vì vậy hãy trả lời
+    như trong giao tiếp hàng ngày.
+  max_new_tokens: 256
+  temperature: 0.7
+  top_p: 0.9
+
+tts:
+  config: "configs/tts/cosyvoice2_vietnamese.yaml"
+  default_speaker: "default_vi_female"
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  cors_origins:
+    - "*"
+  rate_limit:
+    requests_per_minute: 60
+    burst: 10
+  max_audio_size_mb: 10
+
+latency_targets:
+  vad_ms: 50
+  asr_ms: 500
+  llm_first_token_ms: 200
+  tts_first_chunk_ms: 300
+  e2e_ms: 1000

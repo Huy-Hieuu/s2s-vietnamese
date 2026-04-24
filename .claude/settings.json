@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch"
+    ]
+  },
+  "env": {
+    "PYTHONPATH": "/home/user/s2s/src",
+    "TOKENIZERS_PARALLELISM": "false",
+    "CUDA_VISIBLE_DEVICES": "0",
+    "ANTHROPIC_AUTH_TOKEN": "cfad88354842496ab2c76124a66c6c85.41Cn81UVJIFu3weK",
+    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
+    "API_TIMEOUT_MS": "3000000",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5.1",    
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5.1",      
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.7",     
+    "ANTHROPIC_SMALL_FAST_MODEL": "glm-4.7"  
+  }
+}

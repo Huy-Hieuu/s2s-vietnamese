@@ -1,0 +1,2 @@
+[console_scripts]
+s2s-serve = src.deploy.api:main

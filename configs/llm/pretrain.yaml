@@ -1,0 +1,35 @@
+model:
+  name: "meta-llama/Meta-Llama-3-8B-Instruct"
+  max_model_len: 4096
+  torch_dtype: "bfloat16"
+  use_flash_attention_2: true
+
+training:
+  output_dir: "checkpoints/llm/pretrain"
+  num_train_epochs: 1
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 8
+  learning_rate: 5.0e-5
+  warmup_steps: 1000
+  weight_decay: 0.01
+  bf16: true
+  gradient_checkpointing: true
+  eval_strategy: "steps"
+  eval_steps: 500
+  save_steps: 1000
+  save_total_limit: 3
+  logging_steps: 50
+  report_to: "wandb"
+  # DeepSpeed ZeRO-3 for large models
+  # deepspeed: configs/llm/ds_config_zero3.json
+
+data:
+  train_files:
+    - "data/llm/pretrain/vietnamese_corpus.jsonl"
+  eval_files:
+    - "data/llm/pretrain/eval_subset.jsonl"
+  max_seq_length: 4096
+  preprocessing_num_workers: 8
+
+tokenizer:
+  verify_diacritics: true

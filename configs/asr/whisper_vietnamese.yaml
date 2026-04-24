@@ -1,0 +1,47 @@
+model:
+  name: "openai/whisper-large-v3"
+  language: "vi"
+  use_flash_attention_2: true
+  torch_dtype: "bfloat16"
+
+training:
+  output_dir: "checkpoints/asr/whisper-vi"
+  num_train_epochs: 3
+  per_device_train_batch_size: 16
+  gradient_accumulation_steps: 2
+  learning_rate: 1.0e-5
+  warmup_steps: 500
+  weight_decay: 0.01
+  fp16: false
+  bf16: true
+  gradient_checkpointing: true
+  eval_strategy: "steps"
+  eval_steps: 500
+  save_strategy: "steps"
+  save_steps: 500
+  save_total_limit: 3
+  load_best_model_at_end: true
+  metric_for_best_model: "wer"
+  greater_is_better: false
+  logging_steps: 50
+  report_to: "wandb"
+  deepspeed: null
+
+data:
+  train_files:
+    - "data/asr/train/common_voice_vi.jsonl"
+    - "data/asr/train/vivos.jsonl"
+  eval_files:
+    - "data/asr/eval/common_voice_vi_test.jsonl"
+  accent_distribution:
+    bac: 0.4
+    trung: 0.3
+    nam: 0.3
+  max_audio_length_s: 30
+  sampling_rate: 16000
+
+streaming:
+  chunk_size_s: 3.0
+  stride_s: 1.0
+  language: "vi"
+  task: "transcribe"
